@@ -1,0 +1,153 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap");
+@import "tailwindcss";
+@import "react-form-toaster/dist/index.css";
+
+@theme {
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-page: #090a0f;
+  --color-page-alt: #0b0d15;
+  --color-surface: #11131e;
+  --color-surface-raised: #131622;
+  --color-surface-input: #181b2b;
+  --color-border: #1d2138;
+  --color-border-strong: #2d3356;
+  --color-text: #f1f2f6;
+  --color-muted: #8f95b2;
+  --color-faint: #4e5474;
+  --color-accent: #5d5fef;
+  --color-accent-soft: rgba(93, 95, 239, 0.13);
+  --color-pink: #ef5da8;
+  --color-pink-soft: rgba(239, 93, 168, 0.13);
+  --color-success: #10b981;
+  --color-success-bg: #1c382a;
+  --color-danger: #ef4444;
+  --color-github: #24292e;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply m-0 min-h-dvh bg-page font-sans text-text antialiased;
+    font-feature-settings:
+      "kern" 1,
+      "liga" 1;
+  }
+
+  #root {
+    @apply min-h-dvh;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-accent) 35%, transparent);
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+
+
+}
+/* Add this to your global styles or component */
+.hero-form-demo {
+  min-height: auto;
+  overflow: visible;
+}
+
+/* Make sure the form container doesn't cut off content */
+[data-formbox-container] {
+  overflow: visible !important;
+  min-height: auto !important;
+}
+
+/* VS Code–style Prism tokens */
+.code-vscode {
+  tab-size: 2;
+}
+
+.code-vscode code {
+  display: block;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  tab-size: inherit;
+  white-space: inherit;
+}
+
+.code-vscode .token {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.code-vscode .token.comment,
+.code-vscode .token.prolog,
+.code-vscode .token.doctype,
+.code-vscode .token.cdata {
+  color: #6a9955;
+}
+
+.code-vscode .token.punctuation {
+  color: #d4d4d4;
+}
+
+.code-vscode .token.property,
+.code-vscode .token.tag,
+.code-vscode .token.boolean,
+.code-vscode .token.number,
+.code-vscode .token.constant,
+.code-vscode .token.symbol {
+  color: #b5cea8;
+}
+
+.code-vscode .token.selector,
+.code-vscode .token.attr-name,
+.code-vscode .token.string,
+.code-vscode .token.char,
+.code-vscode .token.builtin,
+.code-vscode .token.inserted {
+  color: #ce9178;
+}
+
+.code-vscode .token.operator,
+.code-vscode .token.entity,
+.code-vscode .token.url,
+.code-vscode .language-css .token.string,
+.code-vscode .style .token.string {
+  color: #d4d4d4;
+}
+
+.code-vscode .token.atrule,
+.code-vscode .token.attr-value,
+.code-vscode .token.keyword {
+  color: #569cd6;
+}
+
+.code-vscode .token.function,
+.code-vscode .token.class-name {
+  color: #dcdcaa;
+}
+
+.code-vscode .token.regex,
+.code-vscode .token.important,
+.code-vscode .token.variable {
+  color: #d16969;
+}
+
+.code-vscode .token.parameter {
+  color: #9cdcfe;
+}
+
+.code-vscode .token.type-definition,
+.code-vscode .token.maybe-class-name {
+  color: #4ec9b0;
+}
