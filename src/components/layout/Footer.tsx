@@ -65,7 +65,7 @@ export function Footer() {
           </div>
         </div>
 
-        <p className="mt-4 text-xs text-faint">
+        <p className="mt-4 text-sm text-muted">
           Built by{" "}
           <a
             href={site.author.url}
@@ -80,3 +80,4 @@ export function Footer() {
     </footer>
   );
 }
+

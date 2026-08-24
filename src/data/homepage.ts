@@ -330,13 +330,13 @@ export const communitySection: {
     badgeTone: "accent",
     title: "Built for the developer community",
     description:
-      "Open source under the MIT License. Join our thriving Discord and help build the future of forms.",
+      "Open source under the MIT License. Join my thriving Linkedin and help build the future of forms.",
     align: "center",
   },
   cards: [
     {
       id: "linkedin",
-      title: "Discord Community",
+      title: "Linkedin Community",
       description:
         "Get help, share configs, and show off your forms with over 5,000 developers.",
       cta: {
@@ -358,4 +358,3 @@ export const communitySection: {
     },
   ],
 };
-

@@ -45,7 +45,7 @@ export function PlaygroundShell({
         : "xl:grid-cols-1";
 
   return (
-    <div className={`flex w-full flex-col gap-4 ${className}`}>
+    <div className={`flex items-center flex-col w-full gap-4 ${className}`}>
       {toolbar}
 
       <div
@@ -57,7 +57,7 @@ export function PlaygroundShell({
           border-gray-700
           bg-surface
           shadow-[0_0_0_1px_rgba(93,95,239,0.06)]
-          ${compact ? "mx-auto max-w-[960px]" : ""}
+          ${compact ? " max-w-[960px]" : ""}
         `}
       >
         <motion.div

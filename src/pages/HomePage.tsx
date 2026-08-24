@@ -6,6 +6,7 @@ import { PlaygroundTeaserSection } from "@/components/sections/PlaygroundTeaserS
 import { GettingStartedSection } from "@/components/sections/GettingStartedSection";
 import { CommunitySection } from "@/components/sections/CommunitySection";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import WhyReactFormToaster from "@/components/sections/WhyReactFormToaster";
 
 export function HomePage() {
   return (
@@ -24,7 +25,9 @@ export function HomePage() {
         <EcosystemSection />
       </AnimatedSection>
 
-      <AnimatedSection delay={0.06}></AnimatedSection>
+      <AnimatedSection delay={0.06}>
+        <WhyReactFormToaster />
+      </AnimatedSection>
 
       <AnimatedSection>
         <PlaygroundTeaserSection />
