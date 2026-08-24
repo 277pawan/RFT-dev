@@ -5,7 +5,7 @@ import {
   type CSSProperties,
   type UIEvent,
 } from "react";
-import type { CodeLanguage } from "@/lib/prism";
+import { highlightCode, type CodeLanguage } from "@/lib/prism";
 
 type CodeEditorProps = {
   value: string;
@@ -34,15 +34,18 @@ const editorTextStyle: CSSProperties = {
 export function CodeEditor({
   value,
   onChange,
+  language,
   readOnly = false,
   minLines = 16,
   className = "",
 }: CodeEditorProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const gutterRef = useRef<HTMLDivElement>(null);
+  const highlightRef = useRef<HTMLPreElement>(null);
   const [activeLine, setActiveLine] = useState(1);
   const lineCount = Math.max(value.split("\n").length, minLines);
   const contentMinHeight = lineCount * LINE_HEIGHT + PADDING * 2;
+  const highlightedCode = highlightCode(value, language ?? "typescript");
 
   const updateActiveLine = () => {
     const textarea = textareaRef.current;
@@ -56,13 +59,17 @@ export function CodeEditor({
   };
 
   const handleScroll = (event: UIEvent<HTMLTextAreaElement>) => {
+    const { scrollLeft, scrollTop } = event.currentTarget;
     if (gutterRef.current) {
-      gutterRef.current.style.transform = `translateY(-${event.currentTarget.scrollTop}px)`;
+      gutterRef.current.style.transform = `translateY(-${scrollTop}px)`;
+    }
+    if (highlightRef.current) {
+      highlightRef.current.style.transform = `translate(${-scrollLeft}px, ${-scrollTop}px)`;
     }
   };
 
   return (
-    <div className={`flex min-h-0 h-full overflow-hidden bg-surface ${className}`}>
+    <div className={`relative flex min-h-0 h-full overflow-hidden bg-surface ${className}`}>
       <div
         aria-hidden
         className="shrink-0 select-none overflow-hidden border-r border-gray-800 bg-surface-raised"
@@ -86,6 +93,15 @@ export function CodeEditor({
         </div>
       </div>
 
+      <pre
+        aria-hidden
+        ref={highlightRef}
+        className="code-vscode pointer-events-none absolute inset-y-0 left-12 right-0 overflow-hidden"
+        style={{ padding: PADDING, margin: 0, ...editorTextStyle, minHeight: contentMinHeight }}
+      >
+        <code dangerouslySetInnerHTML={{ __html: highlightedCode }} />
+      </pre>
+
       <textarea
         ref={textareaRef}
         value={value}
@@ -108,7 +124,10 @@ export function CodeEditor({
           border: "none",
           outline: "none",
           background: "transparent",
-          color: "var(--color-text)",
+          color: "transparent",
+          WebkitTextFillColor: "transparent",
+          position: "relative",
+          zIndex: 1,
           caretColor: "var(--color-pink)",
         }}
       />

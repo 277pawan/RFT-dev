@@ -5,14 +5,16 @@ import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-jsx";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-tsx";
+import "prismjs/components/prism-bash";
 
-export type CodeLanguage = "typescript" | "tsx" | "javascript" | "jsx";
+export type CodeLanguage = "typescript" | "tsx" | "javascript" | "jsx" | "bash";
 
 const languageMap: Record<CodeLanguage, Prism.Grammar> = {
   javascript: Prism.languages.javascript,
   jsx: Prism.languages.jsx,
   typescript: Prism.languages.typescript,
   tsx: Prism.languages.tsx,
+  bash: Prism.languages.bash,
 };
 
 export function highlightCode(code: string, language: CodeLanguage): string {
@@ -21,6 +23,7 @@ export function highlightCode(code: string, language: CodeLanguage): string {
 }
 
 export function languageFromFilename(filename: string): CodeLanguage {
+  if (filename.endsWith(".sh") || filename.endsWith(".bash")) return "bash";
   if (filename.endsWith(".tsx")) return "tsx";
   if (filename.endsWith(".jsx")) return "jsx";
   if (filename.endsWith(".ts")) return "typescript";

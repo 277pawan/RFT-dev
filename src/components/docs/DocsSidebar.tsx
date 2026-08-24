@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 import { docsSections, docsSidebarGroups } from "@/data/docs";
 import { sectionMatchesQuery } from "@/components/docs/searchDocs";
 
@@ -12,7 +14,25 @@ const sectionById = Object.fromEntries(
 
 export function DocsSidebar({ query = "" }: DocsSidebarProps) {
   const location = useLocation();
-  const activeHash = location.hash.replace("#", "");
+  const [activeSection, setActiveSection] = useState(location.hash.replace("#", ""));
+
+  useEffect(() => {
+    setActiveSection(location.hash.replace("#", ""));
+    const articles = document.querySelectorAll<HTMLElement>("article[id]");
+    if (articles.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (visible) setActiveSection(visible.target.id);
+      },
+      { rootMargin: "-18% 0px -70% 0px", threshold: 0 },
+    );
+    articles.forEach((article) => observer.observe(article));
+    return () => observer.disconnect();
+  }, [location.hash]);
 
   return (
     <aside className="border-b border-gray-800 bg-page-alt md:sticky md:top-16 md:h-[calc(100dvh-4rem)] md:border-b-0">
@@ -56,12 +76,15 @@ export function DocsSidebar({ query = "" }: DocsSidebarProps) {
                       <li key={item.id}>
                         <a
                           href={`#${item.sectionId}`}
-                          className={`block rounded-md border px-3 py-2 text-sm transition-colors ${
-                            activeHash === item.sectionId
+                          className={`relative block rounded-md border px-3 py-2 text-sm transition-colors ${
+                            activeSection === item.sectionId
                               ? "border-gray-800 bg-surface font-semibold text-text"
                               : "border-transparent text-muted hover:border-gray-800 hover:bg-surface hover:text-text"
                           }`}
                         >
+                          {activeSection === item.sectionId ? (
+                            <motion.span layoutId="docs-active-item" className="absolute inset-y-1 left-0 w-0.5 rounded-full bg-cyan-400" />
+                          ) : null}
                           {item.label}
                         </a>
                       </li>

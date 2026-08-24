@@ -1,7 +1,7 @@
 import { useLocation, useSearchParams } from "react-router-dom";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { DocExample } from "@/components/docs/DocExample";
+import { DocBlockRenderer } from "@/components/docs/DocBlockRenderer";
 import { DocsSidebar } from "@/components/docs/DocsSidebar";
 import { searchDocsSections } from "@/components/docs/searchDocs";
 import { docsSections } from "@/data/docs";
@@ -21,7 +21,7 @@ export function DocsPage() {
   return (
     <div className="min-h-[calc(100dvh-4rem)] w-full bg-page">
       {/* Sidebar LEFT · content RIGHT — grid, not stacked flex */}
-      <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 md:grid-cols-[256px_minmax(0,1fr)]">
+      <div className="mx-auto grid w-full max-w-360 grid-cols-1 md:grid-cols-[256px_minmax(0,1fr)]">
         <DocsSidebar query={query} />
 
         <main className="min-w-0 px-5 py-10 md:border-l md:border-gray-800 md:px-10 lg:px-14 lg:py-14">
@@ -78,16 +78,17 @@ export function DocsPage() {
                     </p>
                   ) : null}
 
-                  {section.presetId ? (
-                    <div className="mt-8 w-full max-w-full overflow-x-auto">
-                      <DocExample
-                        preset={section.presetId}
-                        showCode={section.showCode ?? false}
-                        showState={section.showState ?? false}
-                        codeTab={section.codeTab}
-                      />
-                    </div>
-                  ) : null}
+                  <div className="mt-8 w-full max-w-full overflow-x-auto">
+                    <DocBlockRenderer
+                      blocks={section.blocks ?? (section.presetId ? [{
+                        type: "example",
+                        presetId: section.presetId,
+                        showCode: section.showCode,
+                        showState: section.showState,
+                        codeTab: section.codeTab,
+                      }] : [])}
+                    />
+                  </div>
                 </article>
               ))
             )}

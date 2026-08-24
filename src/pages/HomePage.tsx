@@ -24,6 +24,8 @@ export function HomePage() {
         <EcosystemSection />
       </AnimatedSection>
 
+      <AnimatedSection delay={0.06}></AnimatedSection>
+
       <AnimatedSection>
         <PlaygroundTeaserSection />
       </AnimatedSection>

@@ -12,7 +12,8 @@ export function searchDocsSections(
       section.title.toLowerCase().includes(q) ||
       section.id.toLowerCase().includes(q) ||
       section.description?.toLowerCase().includes(q) ||
-      section.presetId?.toLowerCase().includes(q),
+      section.presetId?.toLowerCase().includes(q) ||
+      JSON.stringify(section.blocks ?? []).toLowerCase().includes(q),
   );
 }
 
@@ -24,6 +25,7 @@ export function sectionMatchesQuery(section: DocSection, query: string): boolean
     section.title.toLowerCase().includes(q) ||
     section.id.toLowerCase().includes(q) ||
     (section.description?.toLowerCase().includes(q) ?? false) ||
-    (section.presetId?.toLowerCase().includes(q) ?? false)
+    (section.presetId?.toLowerCase().includes(q) ?? false) ||
+    JSON.stringify(section.blocks ?? []).toLowerCase().includes(q)
   );
 }
