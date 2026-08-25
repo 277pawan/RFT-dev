@@ -64,9 +64,31 @@
 }
 
 /* Make sure the form container doesn't cut off content */
-[data-formbox-container] {
+.formbox-dark {
   overflow: visible !important;
   min-height: auto !important;
+}
+
+.formbox-dark input:not([type="radio"]):not([type="checkbox"]),
+.formbox-dark select,
+.formbox-dark textarea {
+  background-color: var(--color-surface-input) !important;
+  border-color: var(--color-border-strong) !important;
+  color: var(--color-text) !important;
+}
+
+.formbox-dark input::placeholder,
+.formbox-dark textarea::placeholder {
+  color: var(--color-faint) !important;
+}
+
+.formbox-dark input[type="radio"],
+.formbox-dark input[type="checkbox"] {
+  accent-color: var(--color-accent);
+}
+
+.formbox-dark label span {
+  color: var(--color-muted) !important;
 }
 
 /* VS Code–style Prism tokens */

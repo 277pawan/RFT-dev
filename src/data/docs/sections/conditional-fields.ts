@@ -72,6 +72,7 @@ export const conditionalFields: DocSection = {
   name: "companyName",
   type: "text",
   label: "Company Name",
+  placeholder: "Enter company name",
   showWhen: {
     field: "accountType",
     equals: "business",

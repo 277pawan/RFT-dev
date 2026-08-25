@@ -16,10 +16,10 @@ export const playgroundSubmitStyle: CSSProperties = {
 
 export const playgroundFormClassNames = {
   containerClassName:
-    "w-full rounded-xl border border-border bg-surface p-5 overflow-visible",
+    "formbox-dark w-full rounded-xl border border-border bg-surface p-5 overflow-visible",
   innerContainerClassName: "space-y-4 overflow-visible",
   buttonContainerClassName: "pt-2 flex w-full",
-  inputClassName: "w-full rounded-md border",
+  inputClassName: "w-full rounded-md border !border-border-strong !bg-surface-input !text-text placeholder:!text-faint",
   labelClassName: "block text-xs font-semibold text-muted mb-1.5",
   requiredClassName: "text-danger ml-0.5",
   errorClassName: "text-danger text-[11px] font-medium",

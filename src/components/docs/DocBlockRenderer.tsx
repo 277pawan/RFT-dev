@@ -1,30 +1,33 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { DocExample } from "@/components/docs/DocExample";
+import { HighlightText } from "@/components/docs/HighlightText";
 import { SyntaxHighlight } from "@/components/ui/SyntaxHighlight";
 import type { DocBlock } from "@/data/docs";
 
-type DocBlockRendererProps = { blocks?: DocBlock[] };
+type DocBlockRendererProps = { blocks?: DocBlock[]; query?: string };
 
-function CodeBlock({ block }: { block: Extract<DocBlock, { type: "code" }> }) {
+function CodeBlock({ block, query }: { block: Extract<DocBlock, { type: "code" }>; query?: string }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-gray-800 bg-surface">
+    <div className="isolate overflow-hidden rounded-lg border border-gray-800 bg-surface">
       {block.filename ? (
         <div className="border-b border-gray-800 px-4 py-2 text-xs text-faint">
-          {block.filename}
+          <HighlightText text={block.filename} query={query} />
         </div>
       ) : null}
-      <SyntaxHighlight
-        code={block.code}
-        language={block.language}
-        showLineNumbers={false}
-        className="p-4 text-sm"
-      />
+      <div className="max-w-full overflow-x-auto">
+        <SyntaxHighlight
+          code={block.code}
+          language={block.language}
+          showLineNumbers={false}
+          className="p-4 text-sm"
+        />
+      </div>
     </div>
   );
 }
 
-function TabsBlock({ block }: { block: Extract<DocBlock, { type: "tabs" }> }) {
+function TabsBlock({ block, query }: { block: Extract<DocBlock, { type: "tabs" }>; query?: string }) {
   const [activeId, setActiveId] = useState(block.tabs[0]?.id ?? "");
   const activeTab =
     block.tabs.find((tab) => tab.id === activeId) ?? block.tabs[0];
@@ -63,7 +66,7 @@ function TabsBlock({ block }: { block: Extract<DocBlock, { type: "tabs" }> }) {
             exit={{ opacity: 0, y: -5 }}
             transition={{ duration: 0.16 }}
           >
-            <DocBlockRenderer blocks={activeTab?.blocks} />
+            <DocBlockRenderer blocks={activeTab?.blocks} query={query} />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -71,7 +74,7 @@ function TabsBlock({ block }: { block: Extract<DocBlock, { type: "tabs" }> }) {
   );
 }
 
-export function DocBlockRenderer({ blocks = [] }: DocBlockRendererProps) {
+export function DocBlockRenderer({ blocks = [], query = "" }: DocBlockRendererProps) {
   const calloutStyles = {
     info: "border-cyan-400 bg-cyan-400/10 text-cyan-100",
     tip: "border-emerald-400 bg-emerald-400/10 text-emerald-100",
@@ -85,21 +88,21 @@ export function DocBlockRenderer({ blocks = [] }: DocBlockRendererProps) {
           case "paragraph":
             return (
               <p key={index} className="text-base leading-relaxed text-muted">
-                {block.text}
+                <HighlightText text={block.text} query={query} />
               </p>
             );
           case "heading":
             return block.level === 4 ? (
               <h4 key={index} className="text-base font-bold text-text">
-                {block.text}
+                <HighlightText text={block.text} query={query} />
               </h4>
             ) : (
               <h3 key={index} className="text-lg font-bold text-text">
-                {block.text}
+                <HighlightText text={block.text} query={query} />
               </h3>
             );
           case "code":
-            return <CodeBlock key={index} block={block} />;
+            return <CodeBlock key={index} block={block} query={query} />;
           case "callout":
             return (
               <aside
@@ -109,10 +112,10 @@ export function DocBlockRenderer({ blocks = [] }: DocBlockRendererProps) {
                 } leading-relaxed ${calloutStyles[block.tone]}`}
               >
                 <strong className="mb-1 block font-semibold text-text">
-                  {block.title ?? block.tone}
+                  <HighlightText text={block.title ?? block.tone} query={query} />
                 </strong>
 
-                <span>{block.text}</span>
+                <span><HighlightText text={block.text} query={query} /></span>
               </aside>
             );
           case "list":
@@ -122,7 +125,7 @@ export function DocBlockRenderer({ blocks = [] }: DocBlockRendererProps) {
                 className="list-decimal space-y-2 pl-5 text-base leading-relaxed text-muted"
               >
                 {block.items.map((item) => (
-                  <li key={item}>{item}</li>
+                  <li key={item}><HighlightText text={item} query={query} /></li>
                 ))}
               </ol>
             ) : (
@@ -131,7 +134,7 @@ export function DocBlockRenderer({ blocks = [] }: DocBlockRendererProps) {
                 className="list-disc space-y-2 pl-5 text-base leading-relaxed text-muted"
               >
                 {block.items.map((item) => (
-                  <li key={item}>{item}</li>
+                  <li key={item}><HighlightText text={item} query={query} /></li>
                 ))}
               </ul>
             );
@@ -146,7 +149,7 @@ export function DocBlockRenderer({ blocks = [] }: DocBlockRendererProps) {
                     <tr>
                       {block.columns.map((column) => (
                         <th key={column} className="px-4 py-3 font-semibold">
-                          {column}
+                          <HighlightText text={column} query={query} />
                         </th>
                       ))}
                     </tr>
@@ -159,7 +162,7 @@ export function DocBlockRenderer({ blocks = [] }: DocBlockRendererProps) {
                       >
                         {row.map((cell, cellIndex) => (
                           <td key={cellIndex} className="px-4 py-3 align-top">
-                            {cell}
+                            <HighlightText text={cell} query={query} />
                           </td>
                         ))}
                       </tr>
@@ -169,7 +172,7 @@ export function DocBlockRenderer({ blocks = [] }: DocBlockRendererProps) {
               </div>
             );
           case "tabs":
-            return <TabsBlock key={index} block={block} />;
+            return <TabsBlock key={index} block={block} query={query} />;
           case "image":
             return (
               <figure key={index}>

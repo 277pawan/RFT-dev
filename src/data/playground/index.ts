@@ -1,10 +1,13 @@
 import type { PlaygroundPreset } from "@/data/playground/types";
 import { contactUsPreset } from "@/data/playground/presets/contact-us";
 import { conditionalFieldsPreset } from "@/data/playground/presets/conditional-fields";
+import { feedbackPreset, newsletterPreset } from "@/data/playground/presets/examples";
 
 export const playgroundPresets: PlaygroundPreset[] = [
   contactUsPreset,
   conditionalFieldsPreset,
+  newsletterPreset,
+  feedbackPreset,
 ];
 
 export const playgroundPresetMap = Object.fromEntries(

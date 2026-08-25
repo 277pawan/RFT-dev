@@ -1,0 +1,206 @@
+import { z } from "zod";
+import type { PlaygroundPreset } from "@/data/playground/types";
+import {
+  playgroundFormClassNames,
+  playgroundInputStyle,
+  playgroundSubmitStyle,
+} from "@/data/playground/formStyles";
+
+const newsletterSchema = z.object({
+  email: z.string().email("Enter a valid email"),
+  frequency: z.enum(["weekly", "monthly"]),
+});
+
+const feedbackSchema = z.object({
+  rating: z.enum(["5", "4", "3", "2", "1"]),
+  feedback: z.string().min(8, "Please share a little more"),
+  attachment: z.unknown().optional(),
+});
+
+function appCode(lines: string[]) {
+  return { "App.tsx": lines };
+}
+
+export const newsletterPreset: PlaygroundPreset = {
+  id: "newsletter-signup",
+  label: "Newsletter Signup",
+  description: "A focused signup form with a frequency selector",
+  category: "basic",
+  previewFilename: "NewsletterSignup.tsx",
+  schema: newsletterSchema,
+  initialValues: { email: "", frequency: "weekly" },
+  formConfig: {
+    title: {
+      text: "Stay in the loop",
+      className: "text-lg font-bold text-text mb-1",
+    },
+    ...playgroundFormClassNames,
+  },
+  fields: [
+    {
+      name: "email",
+      type: "email",
+      label: "Email",
+      placeholder: "you@example.com",
+      required: true,
+      style: playgroundInputStyle,
+    },
+    {
+      name: "frequency",
+      type: "select",
+      label: "Updates",
+      required: true,
+      style: playgroundInputStyle,
+      dropdownClassName: "bg-[#181b2b] text-white border-gray-700",
+      optionsClassName:
+        "bg-[#181b2b] text-gray-200 hover:bg-gray-800 hover:text-white",
+      default: { label: "Every week", value: "weekly" },
+      options: [
+        { label: "Every week", value: "weekly" },
+        { label: "Every month", value: "monthly" },
+      ],
+    },
+  ],
+  buttons: [
+    {
+      name: "Subscribe",
+      type: "submit",
+      className: playgroundFormClassNames.submitClassName,
+      style: playgroundSubmitStyle,
+    },
+  ],
+  codeFiles: appCode([
+    'import { z } from "zod";',
+    'import Formbox from "react-form-toaster";',
+    "",
+    "const schema = z.object({",
+    "  email: z.string().email(),",
+    '  frequency: z.enum(["weekly", "monthly"]),',
+    "});",
+    "",
+    "export function NewsletterSignupForm() {",
+    "  return (",
+    "    <Formbox",
+    "      open={true}",
+    '      mode="inline"',
+    "      schema={schema}",
+    "      fields={[",
+    '        { name: "email", type: "email", label: "Email", placeholder: "you@example.com", required: true },',
+    "        {",
+    '          name: "frequency",',
+    '          type: "select",',
+    '          label: "Updates",',
+    '          dropdownClassName: "bg-[#181b2b] text-white border-gray-700",',
+    '          optionsClassName: "bg-[#181b2b] text-gray-200 hover:bg-gray-800 hover:text-white",',
+    '          default: { label: "Every week", value: "weekly" }',
+    "          options: [",
+    '            { label: "Every week", value: "weekly" },',
+    '            { label: "Every month", value: "monthly" },',
+    "          ],",
+    "        },",
+    "      ]}",
+    '      buttons={[{ name: "Subscribe", type: "submit" }]}',
+    "      onSubmit={async (data) => {",
+    "        console.log(data);",
+    "      }}",
+    "    />",
+    "  );",
+    "}",
+  ]),
+};
+
+export const feedbackPreset: PlaygroundPreset = {
+  id: "quick-feedback",
+  label: "Quick Feedback",
+  description: "A tiny rating and comment form for product feedback",
+  category: "validation",
+  previewFilename: "QuickFeedback.tsx",
+  schema: feedbackSchema,
+  initialValues: { rating: "5", feedback: "" },
+  formConfig: {
+    title: {
+      text: "How did we do?",
+      className: "text-lg font-bold text-text mb-1",
+    },
+    ...playgroundFormClassNames,
+  },
+  fields: [
+    {
+      name: "rating",
+      type: "radio",
+      label: "Rating",
+      required: true,
+      options: [
+        { label: "5", value: "5" },
+        { label: "4", value: "4" },
+        { label: "3", value: "3" },
+        { label: "2", value: "2" },
+        { label: "1", value: "1" },
+      ],
+    },
+    {
+      name: "feedback",
+      type: "text",
+      label: "Comment",
+      placeholder: "Tell us what you think",
+      required: true,
+      style: playgroundInputStyle,
+    },
+    {
+      name: "attachment",
+      type: "file",
+      label: "Attachment",
+      accept: ".png,.jpg,.pdf",
+      style: playgroundInputStyle,
+    },
+  ],
+  buttons: [
+    {
+      name: "Send feedback",
+      type: "submit",
+      className: playgroundFormClassNames.submitClassName,
+      style: playgroundSubmitStyle,
+    },
+  ],
+  codeFiles: appCode([
+    'import { z } from "zod";',
+    'import Formbox from "react-form-toaster";',
+    "",
+    "const schema = z.object({",
+    '  rating: z.enum(["5", "4", "3", "2", "1"]),',
+    "  feedback: z.string().min(8),",
+    "  attachment: z.unknown().optional(),",
+    "});",
+    "",
+    "export function QuickFeedbackForm() {",
+    "  return (",
+    "    <Formbox",
+    "      open={true}",
+    '      mode="inline"',
+    "      schema={schema}",
+    "      fields={[",
+    "        {",
+    '          name: "rating",',
+    '          type: "radio",',
+    '          label: "Rating",',
+    "          required: true,",
+    "          options: [",
+    '            { label: "5", value: "5" },',
+    '            { label: "4", value: "4" },',
+    '            { label: "3", value: "3" },',
+    '            { label: "2", value: "2" },',
+    '            { label: "1", value: "1" },',
+    "          ],",
+    "        },",
+    '        { name: "feedback", type: "text", label: "Comment", placeholder: "Tell us what you think", required: true },',
+    '        { name: "attachment", type: "file", label: "Attachment", accept: ".png,.jpg,.pdf" },',
+    "      ]}",
+    '      buttons={[{ name: "Send feedback", type: "submit" }]}',
+    "      onSubmit={async (data) => {",
+    "        console.log(data);",
+    "      }}",
+    "    />",
+    "  );",
+    "}",
+  ]),
+};

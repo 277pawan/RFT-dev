@@ -40,7 +40,7 @@ export function Navbar() {
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-lg border border-gray-800 bg-surface px-3 py-1.5 text-xs font-semibold text-muted transition-colors hover:border-gray-700 hover:text-text"
           >
-            <GitHubIcon className="size-3.5" />
+            <GitHubIcon className="size-7" />
             <span className="hidden sm:inline">{site.github.starsLabel}</span>
           </a>
         </div>

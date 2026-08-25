@@ -2,19 +2,18 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { docsSections, docsSidebarGroups } from "@/data/docs";
-import { sectionMatchesQuery } from "@/components/docs/searchDocs";
+import { searchDocsSections } from "@/components/docs/searchDocs";
+import { HighlightText } from "@/components/docs/HighlightText";
 
 type DocsSidebarProps = {
   query?: string;
 };
 
-const sectionById = Object.fromEntries(
-  docsSections.map((section) => [section.id, section]),
-);
-
 export function DocsSidebar({ query = "" }: DocsSidebarProps) {
   const location = useLocation();
   const [activeSection, setActiveSection] = useState(location.hash.replace("#", ""));
+  const isSearching = Boolean(query.trim());
+  const ranked = searchDocsSections(docsSections, query);
 
   useEffect(() => {
     setActiveSection(location.hash.replace("#", ""));
@@ -32,7 +31,7 @@ export function DocsSidebar({ query = "" }: DocsSidebarProps) {
     );
     articles.forEach((article) => observer.observe(article));
     return () => observer.disconnect();
-  }, [location.hash]);
+  }, [location.hash, query]);
 
   return (
     <aside className="border-b border-gray-800 bg-page-alt md:sticky md:top-16 md:h-[calc(100dvh-4rem)] md:border-b-0">
@@ -42,27 +41,42 @@ export function DocsSidebar({ query = "" }: DocsSidebarProps) {
         </p>
 
         <nav className="flex flex-col gap-6" aria-label="Documentation topics">
-          {docsSidebarGroups.map((group) => {
-            const visibleItems = group.items.filter((item) => {
-              if (!item.sectionId) {
-                return (
-                  !query.trim() ||
-                  item.label.toLowerCase().includes(query.trim().toLowerCase())
-                );
-              }
-              const section = sectionById[item.sectionId];
-              return section ? sectionMatchesQuery(section, query) : true;
-            });
-
-            if (visibleItems.length === 0) return null;
-
-            return (
+          {isSearching ? (
+            <div>
+              <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-faint">
+                Best matches
+              </p>
+              <ul className="flex flex-col gap-0.5">
+                {ranked.map((section) => (
+                  <li key={section.id}>
+                    <a
+                      href={`#${section.id}`}
+                      className={`relative block rounded-md border px-3 py-2 text-sm transition-colors ${
+                        activeSection === section.id
+                          ? "border-gray-800 bg-surface font-semibold text-text"
+                          : "border-transparent text-muted hover:border-gray-800 hover:bg-surface hover:text-text"
+                      }`}
+                    >
+                      {activeSection === section.id ? (
+                        <motion.span
+                          layoutId="docs-active-item"
+                          className="absolute inset-y-1 left-0 w-0.5 rounded-full bg-cyan-400"
+                        />
+                      ) : null}
+                      <HighlightText text={section.title} query={query} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            docsSidebarGroups.map((group) => (
               <div key={group.title}>
                 <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-faint">
                   {group.title}
                 </p>
                 <ul className="flex flex-col gap-0.5">
-                  {visibleItems.map((item) =>
+                  {group.items.map((item) =>
                     item.href ? (
                       <li key={item.id}>
                         <a
@@ -83,7 +97,10 @@ export function DocsSidebar({ query = "" }: DocsSidebarProps) {
                           }`}
                         >
                           {activeSection === item.sectionId ? (
-                            <motion.span layoutId="docs-active-item" className="absolute inset-y-1 left-0 w-0.5 rounded-full bg-cyan-400" />
+                            <motion.span
+                              layoutId="docs-active-item"
+                              className="absolute inset-y-1 left-0 w-0.5 rounded-full bg-cyan-400"
+                            />
                           ) : null}
                           {item.label}
                         </a>
@@ -92,8 +109,8 @@ export function DocsSidebar({ query = "" }: DocsSidebarProps) {
                   )}
                 </ul>
               </div>
-            );
-          })}
+            ))
+          )}
         </nav>
       </div>
     </aside>

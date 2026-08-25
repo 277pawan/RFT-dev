@@ -4,6 +4,7 @@
  * Reads from and writes to the provider's `codeFiles` via `updateCodeFile`
  * so every keystroke triggers live re-compilation in the preview.
  */
+import { Check, Copy } from "lucide-react";
 import { useEffect, useState } from "react";
 import { CodeEditor } from "@/components/ui/CodeEditor";
 import { usePlayground } from "@/components/playground/PlaygroundProvider";
@@ -30,6 +31,7 @@ export function PlaygroundCodeEditor({
   const [activeTab, setActiveTab] = useState<CodeTabKey>(
     fixedTab ?? availableTabs[0] ?? "schema.ts",
   );
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const nextTabs = tabs.filter((tab) => preset.codeFiles[tab]?.length);
@@ -40,6 +42,12 @@ export function PlaygroundCodeEditor({
 
   const currentTab = fixedTab ?? activeTab;
   const showTabs = availableTabs.length > 1 && !fixedTab;
+
+  const copyCurrentCode = async () => {
+    await navigator.clipboard.writeText(codeFiles[currentTab] ?? "");
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1400);
+  };
 
   return (
     <div className={`flex h-full min-h-[440px] flex-col ${className}`}>
@@ -61,8 +69,17 @@ export function PlaygroundCodeEditor({
           ))}
         </div>
       ) : (
-        <div className="shrink-0 border-b border-border bg-surface-raised px-4 py-2.5 font-mono text-[11px] text-muted">
-          {currentTab}
+        <div className="flex shrink-0 items-center justify-between border-b border-border bg-surface-raised px-4 py-2.5">
+          <span className="font-mono text-[11px] text-muted">{currentTab}</span>
+          <button
+            type="button"
+            onClick={copyCurrentCode}
+            className="inline-flex items-center gap-1.5 text-xs text-muted transition-colors hover:text-text"
+            aria-label="Copy source code"
+          >
+            {copied ? <Check className="size-3.5 text-emerald-400" /> : <Copy className="size-3.5" />}
+            {copied ? "Copied" : "Copy"}
+          </button>
         </div>
       )}
 

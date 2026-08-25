@@ -57,7 +57,7 @@ export function PlaygroundShell({
           border-gray-700
           bg-surface
           shadow-[0_0_0_1px_rgba(93,95,239,0.06)]
-          ${compact ? " max-w-[960px]" : ""}
+          ${compact ? "w-full max-w-none" : ""}
         `}
       >
         <motion.div

@@ -9,6 +9,7 @@ import { validation } from "./validation";
 import { submission } from "./submission";
 import { conditionalFields } from "./conditional-fields";
 import { styling } from "./styling";
+import { examples } from "./examples";
 
 export const docsSections: DocSection[] = [
   introduction,
@@ -21,5 +22,6 @@ export const docsSections: DocSection[] = [
   submission,
   conditionalFields,
   styling,
+  examples,
 ];
 

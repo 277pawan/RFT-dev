@@ -41,16 +41,15 @@ export const footerColumns = [
       { label: "API Reference", href: "/docs#api" },
       { label: "Examples", href: "/docs#examples" },
       { label: "Playground", href: "/playground" },
-      { label: "Changelog", href: site.github.url },
     ],
   },
   {
     title: "Community",
     links: [
       { label: "GitHub", href: site.github.url },
-      { label: "Discord", href: "#" },
-      { label: "Twitter", href: "#" },
-      { label: "Stack Overflow", href: "#" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/pawan-bisht-a943161b9/" },
+      { label: "Medium", href: "https://medium.com/@bpawan277" },
+      { label: "DEV Community", href: "https://dev.to/pawan_bisht_3aa0838e302b2" },
     ],
   },
   {
