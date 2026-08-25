@@ -56,12 +56,25 @@ export function Footer() {
             independently.
           </p>
           <div className="flex gap-6 text-sm text-muted">
-            <a href="#" className="hover:text-text">
-              Terms
+            <a
+              href={site.npm.url}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-text"
+            >
+              npm
             </a>
-            <a href="#" className="hover:text-text">
-              Privacy
+            <a
+              href={site.github.url}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-text"
+            >
+              GitHub
             </a>
+            <Link to="/docs" className="hover:text-text">
+              Docs
+            </Link>
           </div>
         </div>
 

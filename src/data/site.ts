@@ -1,9 +1,12 @@
 export const site = {
   name: "react-form-toaster",
+  title: "React Form Toaster",
   version: "2.0.0",
+  /** Production site — used for canonical, OG, sitemap, robots */
+  url: "https://react-form-toaster.web.app",
   tagline: "Build powerful React forms without repetitive form code.",
   description:
-    "A declarative, schema-driven form library for React. Define your fields, validate with Zod, and ship forms in minutes — not hours.",
+    "Build dynamic React forms with schema-driven fields, Zod validation, conditional fields, arrays, styling, and built-in toast notifications.",
   installCommand: "npm install react-form-toaster",
   github: {
     url: "https://github.com/277pawan/form-builder",
@@ -11,6 +14,7 @@ export const site = {
   },
   /** Swap this path when you have the final brand mark. */
   logoSrc: "/brand-logo.svg",
+  ogImage: "/og-image.png",
   npm: {
     url: "https://www.npmjs.com/package/react-form-toaster",
   },
@@ -56,8 +60,8 @@ export const footerColumns = [
     title: "Legal",
     links: [
       { label: "MIT License", href: `${site.github.url}/blob/main/LICENSE` },
-      { label: "Privacy", href: "#" },
-      { label: "Security", href: "#" },
+      { label: "npm Package", href: site.npm.url },
+      { label: "GitHub Issues", href: `${site.github.url}/issues` },
     ],
   },
 ] as const;

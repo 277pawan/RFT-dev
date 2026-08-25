@@ -14,7 +14,7 @@ export function BrandLogo({ size = "md", showWordmark = true }: BrandLogoProps) 
     <Link to="/" className="inline-flex items-center gap-2.5 group">
       <img
         src={site.logoSrc}
-        alt=""
+        alt="React Form Toaster logo"
         width={32}
         height={32}
         className={`${iconSize} rounded-lg object-cover shadow-sm`}

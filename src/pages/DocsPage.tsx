@@ -32,7 +32,9 @@ export function DocsPage() {
             <>
               <Badge>Documentation</Badge>
               <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-text">
-                {isSearching ? "Search results" : "React Form Toaster"}
+                {isSearching
+                  ? "Search results"
+                  : "React Form Toaster documentation"}
               </h1>
               {isSearching ? (
                 <p className="mt-4 text-sm text-faint">
