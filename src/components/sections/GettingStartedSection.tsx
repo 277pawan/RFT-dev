@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Button } from "@/components/ui/Button";
 import {
   AnimatedCard,
   AnimatedItem,
@@ -33,6 +34,9 @@ export function GettingStartedSection() {
             </AnimatedItem>
           ))}
         </AnimatedStagger>
+        <div>
+          <Button href="/docs/quick-start">Full Quick Start guide</Button>
+        </div>
       </Container>
     </section>
   );

@@ -10,7 +10,7 @@ export const site = {
   installCommand: "npm install react-form-toaster",
   github: {
     url: "https://github.com/277pawan/form-builder",
-    starsLabel: "2.4k",
+    starsLabel: "GitHub",
   },
   /** Swap this path when you have the final brand mark. */
   logoSrc: "/brand-logo.svg",
@@ -32,8 +32,8 @@ export type NavItem = {
 
 export const navItems: NavItem[] = [
   { label: "Docs", href: "/docs" },
-  { label: "API", href: "/docs#api" },
-  { label: "Examples", href: "/docs#examples" },
+  { label: "API", href: "/docs/api" },
+  { label: "Examples", href: "/docs/examples" },
   { label: "Playground", href: "/playground" },
 ];
 
@@ -42,8 +42,9 @@ export const footerColumns = [
     title: "Product",
     links: [
       { label: "Docs", href: "/docs" },
-      { label: "API Reference", href: "/docs#api" },
-      { label: "Examples", href: "/docs#examples" },
+      { label: "Quick Start", href: "/docs/quick-start" },
+      { label: "API Reference", href: "/docs/api" },
+      { label: "Examples", href: "/docs/examples" },
       { label: "Playground", href: "/playground" },
     ],
   },

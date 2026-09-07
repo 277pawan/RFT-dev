@@ -25,9 +25,9 @@ export function HeroSection() {
       <Container className="relative z-10 grid max-w-8xl items-center gap-4 lg:grid-cols-12">
         <AnimatedHero className="flex flex-col gap-6 lg:col-span-6">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 1, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease, delay: 0.05 }}
+            transition={{ duration: 0.4, ease, delay: 0.05 }}
           >
             <span className="inline-flex items-center rounded-full border border-gray-700 bg-[#1e1a3a] px-3.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-[#5D5FEF]">
               {heroContent.badge}
@@ -35,27 +35,27 @@ export function HeroSection() {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 1, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease, delay: 0.12 }}
-            className="max-w-2xl text-5xl leading-[1.15] font-bold tracking-tight text-white sm:text-5xl lg:text-[52px]"
+            transition={{ duration: 0.45, ease, delay: 0.08 }}
+            className="max-w-2xl text-4xl leading-[1.15] font-bold tracking-tight text-white sm:text-5xl lg:text-[52px]"
           >
-            Build powerful React forms without repetitive form code.
+            {heroContent.title}
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 1, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease, delay: 0.2 }}
+            transition={{ duration: 0.4, ease, delay: 0.14 }}
             className="max-w-xl text-base leading-relaxed text-[#9ca3af] sm:text-lg"
           >
             {heroContent.description}
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 1, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease, delay: 0.28 }}
+            transition={{ duration: 0.4, ease, delay: 0.2 }}
             className="flex flex-wrap items-center gap-3 pt-1"
           >
             <Button
@@ -75,9 +75,9 @@ export function HeroSection() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 1, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease, delay: 0.36 }}
+            transition={{ duration: 0.4, ease, delay: 0.26 }}
             className="pt-2"
           >
             <CopyInstall command={heroContent.installCommand} />

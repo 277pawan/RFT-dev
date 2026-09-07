@@ -54,12 +54,12 @@ export type CommunityCard = {
 };
 
 export const heroContent = {
-  badge: "Introducing Version 2.0",
-  title: "Build powerful React forms without repetitive form code.",
+  badge: "Open source · npm · React + Zod",
+  title: "React Form Toaster — schema-driven React forms without boilerplate.",
   description:
-    "A declarative, schema-driven form library for React. Define your fields, validate with Zod, and ship forms in minutes — not hours.",
-  primaryCta: { label: "Get Started", href: "/docs" },
-  secondaryCta: { label: "Playground", href: "/playground" },
+    "react-form-toaster is a TypeScript form library: define fields once, validate with Zod, show conditional inputs, and get inline or modal UI plus toast feedback.",
+  primaryCta: { label: "Read the docs", href: "/docs" },
+  secondaryCta: { label: "Open playground", href: "/playground" },
   installCommand: "npm install react-form-toaster",
   preview: {
     title: "Create an account",
@@ -89,9 +89,9 @@ export const whySection: {
   intro: {
     badge: "Why React Form Toaster",
     badgeTone: "pink",
-    title: "Write schemas, not boilerplate.",
+    title: "Write a schema. Render a form.",
     description:
-      "The easiest way to render robust forms in React without dropping performance or type-safety.",
+      "Formbox turns a Zod schema and a fields array into a working React form — validation, errors, and submit included.",
     align: "left",
   },
   features: [
@@ -220,41 +220,47 @@ export const ecosystemSection: {
   intro: {
     badge: "Ecosystem",
     badgeTone: "pink",
-    title: "Batteries included.",
-    description: "Everything you expect from an enterprise-grade form engine.",
+    title: "What ships with Formbox.",
+    description:
+      "Validation, modes, conditional fields, files, toasts, and styling hooks — the features this library actually documents.",
     align: "center",
   },
   items: [
     {
       id: "ts",
-      title: "TypeScript First",
+      title: "TypeScript + Zod",
       description:
-        "Full type inference from your schema to your submit handler.",
+        "Pass a Zod schema into Formbox. Field names line up with schema keys for typed submit data.",
     },
     {
-      id: "headless",
-      title: "Headless UI",
-      description: "Bring your own components or use built-in styled fields.",
+      id: "modes",
+      title: "Inline or modal",
+      description:
+        "The same fields config works as an embedded card or a popup. Switch with the mode prop.",
     },
     {
       id: "arrays",
-      title: "Form Arrays",
-      description: "Add, remove, reorder dynamic field groups with ease.",
+      title: "Arrays and files",
+      description:
+        "Repeatable groups and file inputs are field types, not a separate form library.",
     },
     {
-      id: "multistep",
-      title: "Multi-Step Forms",
-      description: "Built-in wizard/stepper with per-step validation.",
+      id: "conditional",
+      title: "Conditional fields",
+      description:
+        "showWhen hides or shows a field from another value. No extra React state for visibility.",
     },
     {
-      id: "async",
-      title: "Async Validation",
-      description: "Server-side checks like email uniqueness, built in.",
+      id: "toasts",
+      title: "Toasts built in",
+      description:
+        "Loading, success, and error toasts on submit — or set toast={false} and use your own.",
     },
     {
-      id: "zero",
-      title: "Zero Dependencies",
-      description: "Tiny bundle size. Only peer-dep is React itself.",
+      id: "styling",
+      title: "className and style",
+      description:
+        "Layout with Tailwind-safe class names; put colors in style so JIT purge does not strip them.",
     },
   ],
 };
@@ -295,8 +301,8 @@ export const gettingStarted: {
   intro: {
     badge: "Get Started",
     badgeTone: "accent",
-    title: "Up and running in three steps",
-    description: "",
+    title: "Install, configure, render",
+    description: "Three steps from npm to a working form. Then read Quick Start for the full example.",
     align: "left",
   },
   steps: [
@@ -328,19 +334,19 @@ export const communitySection: {
   intro: {
     badge: "Join Us",
     badgeTone: "accent",
-    title: "Built for the developer community",
+    title: "Open source, MIT licensed",
     description:
-      "Open source under the MIT License. Join my thriving Linkedin and help build the future of forms.",
+      "Star the repo, open an issue, or message the maintainer. No fake user counts.",
     align: "center",
   },
   cards: [
     {
       id: "linkedin",
-      title: "Linkedin Community",
+      title: "LinkedIn",
       description:
-        "Get help, share configs, and show off your forms with over 5,000 developers.",
+        "Questions about Formbox, schema-driven forms, or contributions — reach the author on LinkedIn.",
       cta: {
-        label: "Message me in Linkedin",
+        label: "Message on LinkedIn",
         href: "https://www.linkedin.com/in/pawan-bisht-a943161b9/",
       },
       icon: "linkedin",

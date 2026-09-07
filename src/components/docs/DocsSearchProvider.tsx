@@ -26,7 +26,7 @@ export function DocsSearchProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const isDocsPage = location.pathname === "/docs";
+  const isDocsPage = location.pathname === "/docs" || location.pathname.startsWith("/docs/");
 
   const queryFromUrl = isDocsPage ? (searchParams.get("q") ?? "") : "";
   const [query, setQueryState] = useState(queryFromUrl);

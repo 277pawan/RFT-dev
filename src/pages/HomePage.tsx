@@ -5,27 +5,31 @@ import { EcosystemSection } from "@/components/sections/EcosystemSection";
 import { PlaygroundTeaserSection } from "@/components/sections/PlaygroundTeaserSection";
 import { GettingStartedSection } from "@/components/sections/GettingStartedSection";
 import { CommunitySection } from "@/components/sections/CommunitySection";
+import { FaqSection } from "@/components/sections/FaqSection";
+import { DocsTopicLinks } from "@/components/sections/DocsTopicLinks";
+import { HomepageJsonLd } from "@/components/seo/JsonLd";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import WhyReactFormToaster from "@/components/sections/WhyReactFormToaster";
 
 export function HomePage() {
   return (
     <>
+      <HomepageJsonLd />
       <HeroSection />
 
       <AnimatedSection>
         <WhySection />
       </AnimatedSection>
 
-      <AnimatedSection delay={0.05}>
+      <AnimatedSection>
         <ComparisonSection />
       </AnimatedSection>
 
-      <AnimatedSection delay={0.05}>
+      <AnimatedSection>
         <EcosystemSection />
       </AnimatedSection>
 
-      <AnimatedSection delay={0.06}>
+      <AnimatedSection>
         <WhyReactFormToaster />
       </AnimatedSection>
 
@@ -33,9 +37,12 @@ export function HomePage() {
         <PlaygroundTeaserSection />
       </AnimatedSection>
 
-      <AnimatedSection delay={0.05}>
+      <AnimatedSection>
         <GettingStartedSection />
       </AnimatedSection>
+
+      <DocsTopicLinks />
+      <FaqSection />
 
       <AnimatedSection>
         <CommunitySection />

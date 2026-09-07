@@ -136,21 +136,10 @@ function ComparisonCell({
 
 export default function WhyReactFormToaster() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#08090f] text-white">
-      {/* Background */}
-      <div className="pointer-events-none fixed inset-0">
+    <section className="relative overflow-hidden bg-[#08090f] py-20 text-white lg:py-24">
+      <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-[-300px] h-[650px] w-[900px] -translate-x-1/2 rounded-full bg-violet-600/[0.08] blur-[150px]" />
-
         <div className="absolute bottom-[15%] left-[-200px] h-[450px] w-[450px] rounded-full bg-fuchsia-600/[0.04] blur-[140px]" />
-
-        <div
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
       </div>
 
       <div className="relative mx-auto max-w-6xl px-5  sm:px-8 lg:px-10">
@@ -158,7 +147,7 @@ export default function WhyReactFormToaster() {
             COMPARISON
         ========================================================= */}
         <motion.section
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 1, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7 }}
@@ -214,7 +203,7 @@ export default function WhyReactFormToaster() {
             {comparisonRows.map((row, index) => (
               <motion.div
                 key={row.title}
-                initial={{ opacity: 0 }}
+                initial={{ opacity: 1 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{
@@ -252,7 +241,7 @@ export default function WhyReactFormToaster() {
             ONE SOURCE OF TRUTH
         ========================================================= */}
         <motion.section
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 1, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-70px" }}
           transition={{ duration: 0.7 }}
@@ -293,7 +282,7 @@ export default function WhyReactFormToaster() {
               ].map((item, index) => (
                 <motion.div
                   key={item.title}
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ opacity: 1, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.08 }}
@@ -311,7 +300,7 @@ export default function WhyReactFormToaster() {
             <div className="my-4 flex justify-center text-violet-400/60">↓</div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.97 }}
+              initial={{ opacity: 1, scale: 0.97 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               className="rounded-2xl border border-gray-600 bg-violet-500/[0.045] p-6 text-center shadow-[0_0_60px_rgba(139,92,246,0.06)]"
@@ -337,7 +326,7 @@ export default function WhyReactFormToaster() {
                 (item, index) => (
                   <motion.div
                     key={item}
-                    initial={{ opacity: 0, y: 12 }}
+                    initial={{ opacity: 1, y: 12 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.06 }}
@@ -351,6 +340,6 @@ export default function WhyReactFormToaster() {
           </div>
         </motion.section>
       </div>
-    </main>
+    </section>
   );
 }

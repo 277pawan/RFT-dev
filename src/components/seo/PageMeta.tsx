@@ -1,32 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { site } from "@/data/site";
-
-type PageSeoConfig = {
-  title: string;
-  description: string;
-  path: string;
-};
-
-const routes: Record<string, PageSeoConfig> = {
-  "/": {
-    title: "React Form Toaster — Schema-Driven React Forms",
-    description: site.description,
-    path: "/",
-  },
-  "/docs": {
-    title: "Docs — React Form Toaster",
-    description:
-      "Documentation for React Form Toaster: installation, Zod validation, Formbox props, conditional fields, styling, API reference, and examples.",
-    path: "/docs",
-  },
-  "/playground": {
-    title: "Playground — React Form Toaster",
-    description:
-      "Try React Form Toaster live. Edit schema and fields, toggle inline or modal mode, and see validated forms update in real time.",
-    path: "/playground",
-  },
-};
+import { resolveSeo } from "@/data/seo";
 
 function upsertMeta(
   attribute: "name" | "property",
@@ -54,14 +29,8 @@ function upsertCanonical(href: string) {
   link.setAttribute("href", href);
 }
 
-function resolveSeo(pathname: string): PageSeoConfig {
-  return (
-    routes[pathname] ?? {
-      title: "React Form Toaster",
-      description: site.description,
-      path: pathname.startsWith("/") ? pathname : `/${pathname}`,
-    }
-  );
+function upsertRobots(content: string) {
+  upsertMeta("name", "robots", content);
 }
 
 /** Updates document title + social/meta tags on client-side route changes. */
@@ -69,22 +38,29 @@ export function PageMeta() {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    const known = Boolean(
+      pathname === "/" ||
+        pathname === "/docs" ||
+        pathname === "/playground" ||
+        pathname.startsWith("/docs/"),
+    );
     const seo = resolveSeo(pathname);
     const url = `${site.url}${seo.path === "/" ? "/" : seo.path}`;
     const image = `${site.url}${site.ogImage}`;
 
-    document.title = seo.title;
+    document.title = known ? seo.title : "Page not found — React Form Toaster";
     upsertCanonical(url);
+    upsertRobots(known ? "index, follow, max-image-preview:large" : "noindex, follow");
 
     upsertMeta("name", "description", seo.description);
     upsertMeta("name", "twitter:card", "summary_large_image");
-    upsertMeta("name", "twitter:title", seo.title);
+    upsertMeta("name", "twitter:title", document.title);
     upsertMeta("name", "twitter:description", seo.description);
     upsertMeta("name", "twitter:image", image);
 
     upsertMeta("property", "og:type", "website");
     upsertMeta("property", "og:site_name", site.title);
-    upsertMeta("property", "og:title", seo.title);
+    upsertMeta("property", "og:title", document.title);
     upsertMeta("property", "og:description", seo.description);
     upsertMeta("property", "og:url", url);
     upsertMeta("property", "og:image", image);

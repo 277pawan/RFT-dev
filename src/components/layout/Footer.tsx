@@ -11,8 +11,8 @@ export function Footer() {
           <div className="max-w-[300px]">
             <BrandLogo size="sm" />
             <p className="mt-4 text-sm leading-relaxed text-muted">
-              Next-generation form rendering engine for modern React
-              applications.
+              Schema-driven React forms with Zod validation, conditional fields,
+              and built-in toasts. MIT licensed.
             </p>
           </div>
 
@@ -29,7 +29,7 @@ export function Footer() {
                         <a
                           href={link.href}
                           target="_blank"
-                          rel="noreferrer"
+                          rel="noopener noreferrer"
                           className="text-sm text-muted transition hover:text-text"
                         >
                           {link.label}
@@ -59,7 +59,7 @@ export function Footer() {
             <a
               href={site.npm.url}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hover:text-text"
             >
               npm
@@ -67,7 +67,7 @@ export function Footer() {
             <a
               href={site.github.url}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hover:text-text"
             >
               GitHub
@@ -84,7 +84,7 @@ export function Footer() {
             href={site.author.url}
             className="text-muted hover:text-text"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             {site.author.name}
           </a>

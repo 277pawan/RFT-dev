@@ -1,7 +1,19 @@
 import { motion, type HTMLMotionProps } from "framer-motion";
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
+
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+  return reduced;
+}
 
 type AnimatedSectionProps = {
   children: ReactNode;
@@ -14,12 +26,14 @@ export function AnimatedSection({
   className = "",
   delay = 0,
 }: AnimatedSectionProps) {
+  const reduced = usePrefersReducedMotion();
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 32 }}
+      initial={reduced ? false : { opacity: 1, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.55, ease, delay }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: reduced ? 0 : 0.45, ease, delay: reduced ? 0 : delay }}
       className={className}
     >
       {children}
@@ -36,9 +50,9 @@ export function AnimatedHero({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 1, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.65, ease }}
+      transition={{ duration: 0.5, ease }}
       className={className}
     >
       {children}
@@ -60,7 +74,7 @@ export function AnimatedStagger({
       viewport={{ once: true, margin: "-40px" }}
       variants={{
         hidden: {},
-        visible: { transition: { staggerChildren: 0.08 } },
+        visible: { transition: { staggerChildren: 0.06 } },
       }}
       className={className}
     >
@@ -77,11 +91,11 @@ export function AnimatedItem({ children, className = "", ...rest }: AnimatedItem
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 20 },
+        hidden: { opacity: 1, y: 14 },
         visible: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.45, ease },
+          transition: { duration: 0.4, ease },
         },
       }}
       className={className}

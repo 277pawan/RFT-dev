@@ -155,6 +155,6 @@ export const docsNav = docsSidebarGroups.flatMap((group) =>
   group.items.map((item) => ({
     id: item.id,
     label: item.label,
-    href: item.href ?? `#${item.sectionId ?? item.id}`,
+    href: item.href ?? `/docs/${item.sectionId ?? item.id}`,
   })),
 );
