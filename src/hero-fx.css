@@ -1,0 +1,146 @@
+/* Import once, e.g. in HeroSection.tsx: import "./hero-fx.css"; */
+
+@property --rft-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rft-spin {
+  to {
+    --rft-angle: 360deg;
+  }
+}
+@keyframes rft-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--r, 0deg));
+  }
+  50% {
+    transform: translateY(-14px) rotate(var(--r, 0deg));
+  }
+}
+@keyframes rft-aurora {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(60px, -40px) scale(1.15);
+  }
+  66% {
+    transform: translate(-50px, 30px) scale(0.95);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+@keyframes rft-shimmer {
+  to {
+    background-position: 300% 0;
+  }
+}
+@keyframes rft-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes rft-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+}
+@keyframes rft-scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* Rotating rainbow border around the form card */
+.rft-border {
+  position: relative;
+  border-radius: 26px;
+  padding: 2px;
+  background: conic-gradient(from var(--rft-angle), white, #6366f1);
+  animation: rft-spin 6s linear infinite;
+}
+.rft-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: inherit;
+  filter: blur(2px);
+  opacity: 0.55;
+}
+
+.rft-text-shimmer {
+  background: linear-gradient(90deg, #fff, #a5b4fc, #f0abfc, #67e8f9, #fff);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rft-shimmer 7s linear infinite;
+}
+
+.rft-float {
+  animation: rft-float 6s ease-in-out infinite;
+}
+.rft-aurora {
+  animation: rft-aurora 16s ease-in-out infinite;
+}
+.rft-marquee {
+  animation: rft-marquee 30s linear infinite;
+}
+.rft-dot {
+  animation: rft-pulse 1.6s ease-in-out infinite;
+}
+
+.rft-grid-mask {
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 60% at 50% 40%,
+    #000 30%,
+    transparent 80%
+  );
+  mask-image: radial-gradient(
+    ellipse 70% 60% at 50% 40%,
+    #000 30%,
+    transparent 80%
+  );
+}
+
+.rft-scanline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  height: 40%;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(129, 140, 248, 0.07),
+    transparent
+  );
+  animation: rft-scan 5s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rft-border,
+  .rft-float,
+  .rft-aurora,
+  .rft-marquee,
+  .rft-dot,
+  .rft-text-shimmer,
+  .rft-scanline::after {
+    animation: none;
+  }
+}
